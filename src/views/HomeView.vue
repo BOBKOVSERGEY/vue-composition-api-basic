@@ -9,7 +9,7 @@
       <button @click="increaseCounter(2)" class="btn">++</button>
     </div>
     <div>
-      <input type="text" v-model="counterData.title">
+      <input type="text" v-model="counterData.title" v-autofocus>
     </div>
     <p>This counter is {{oddOrEven}}</p>
   </div>
@@ -22,7 +22,7 @@ import {
   onMounted,
   onBeforeMount,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated
 } from 'vue';
 
 const counterData = reactive({
@@ -64,6 +64,30 @@ onBeforeUnmount(() => {
 onUnmounted(() => {
   console.log('onUnmounted')
 })
+
+onActivated(() => {
+  console.log('onActivated')
+})
+
+onDeactivated(() => {
+  console.log('onDeactivated')
+})
+
+onBeforeUpdate(() => {
+  console.log('onBeforeUpdate')
+});
+
+onUpdated(() => {
+  console.log('onUpdated')
+})
+
+// directives
+
+const vAutofocus = {
+  mounted: (el) => {
+    el.focus()
+  }
+}
 
 </script>
 <style>
