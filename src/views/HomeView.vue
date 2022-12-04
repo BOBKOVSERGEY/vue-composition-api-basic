@@ -15,13 +15,25 @@
   </div>
 </template>
 <script setup>
-import {reactive, computed} from 'vue';
+import {
+  reactive,
+  computed,
+  watch,
+  onMounted,
+  onBeforeMount,
+  onBeforeUnmount,
+  onUnmounted
+} from 'vue';
 
 const counterData = reactive({
   count: 0,
   title: 'My Counter'
 });
-
+watch(()=> counterData.count, (newCount) => {
+  if(newCount >5 ) {
+    alert('go up')
+  }
+});
 function increaseCounter(amount)
 {
   counterData.count += amount;
@@ -39,6 +51,20 @@ const oddOrEven = computed(() => {
           return 'odd'
         }
 });
+
+onBeforeMount(() => {
+  console.log('onBeforeMount')
+});
+onMounted(() => {
+  console.log('onMounted')
+})
+onBeforeUnmount(() => {
+  console.log('onBeforeUnmount')
+})
+onUnmounted(() => {
+  console.log('onUnmounted')
+})
+
 </script>
 <style>
 .home {
