@@ -1,0 +1,52 @@
+<template>
+  <div class="home">
+    <h2>{{ counterData.title }}</h2>
+    <div>
+      <button @click="decreaseCounter(2)" class="btn">--</button>
+      <button @click="decreaseCounter(1)" class="btn">-</button>
+      <span class="counter">{{ counterData.count }}</span>
+      <button @click="increaseCounter(1)" class="btn">+</button>
+      <button @click="increaseCounter(2)" class="btn">++</button>
+    </div>
+    <div>
+      <input type="text" v-model="counterData.title">
+    </div>
+    <p>This counter is {{oddOrEven}}</p>
+  </div>
+</template>
+<script setup>
+import {reactive, computed} from 'vue';
+
+const counterData = reactive({
+  count: 0,
+  title: 'My Counter'
+});
+
+function increaseCounter(amount)
+{
+  counterData.count += amount;
+}
+function decreaseCounter(amount)
+{
+  if(counterData.count > 0) {
+    counterData.count -= amount;
+  }
+}
+const oddOrEven = computed(() => {
+        if(counterData.count % 2 === 0) {
+          return 'even';
+        } else {
+          return 'odd'
+        }
+});
+</script>
+<style>
+.home {
+  text-align: center;
+  padding: 20px;
+}
+.btn, .counter {
+  font-size: 40px;
+  margin: 10px;
+}
+</style>
