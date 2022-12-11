@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2>{{ counterData.title }}</h2>
+    <h2 ref="appTitleRef">{{ counterData.title }}</h2>
     <div>
       <button @click="decreaseCounter(2)" class="btn">--</button>
       <button @click="decreaseCounter(1)" class="btn">-</button>
@@ -16,14 +16,22 @@
 </template>
 <script setup>
 import {
+  nextTick,
   reactive,
   computed,
   watch,
   onMounted,
   onBeforeMount,
   onBeforeUnmount,
-  onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated
+  onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated,
+  ref
 } from 'vue';
+
+const appTitleRef = ref(null);
+
+onMounted(() => {
+  console.log(appTitleRef.value.textContent);
+});
 
 const counterData = reactive({
   count: 0,
@@ -37,6 +45,9 @@ watch(()=> counterData.count, (newCount) => {
 function increaseCounter(amount)
 {
   counterData.count += amount;
+  nextTick(() => {
+    appTitleRef.value.style.color = 'red'
+  })
 }
 function decreaseCounter(amount)
 {
