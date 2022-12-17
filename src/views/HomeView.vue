@@ -16,10 +16,6 @@
 </template>
 <script setup>
 import {
-  nextTick,
-  reactive,
-  computed,
-  watch,
   onMounted,
   onBeforeMount,
   onBeforeUnmount,
@@ -27,13 +23,21 @@ import {
   ref
 } from 'vue';
 
+import { useCounter } from "../use/useCounter";
+
 const appTitleRef = ref(null);
 
 onMounted(() => {
   console.log(appTitleRef.value.textContent);
 });
 
-const counterData = reactive({
+const {
+  counterData,
+  oddOrEven,
+  increaseCounter,
+  decreaseCounter
+} = useCounter();
+/*const counterData = reactive({
   count: 0,
   title: 'My Counter'
 });
@@ -61,7 +65,7 @@ const oddOrEven = computed(() => {
         } else {
           return 'odd'
         }
-});
+});*/
 
 onBeforeMount(() => {
   console.log('onBeforeMount')

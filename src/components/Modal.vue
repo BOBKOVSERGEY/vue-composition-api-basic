@@ -2,9 +2,10 @@
   <teleport to="body">
     <div
         class="modal">
-      <h2><slot name="title"></slot></h2>
+      <h2>{{ title }}</h2>
       <slot/>
      <button
+         @click="emit('hideModal')"
           class="close"
           >&times;</button>
     </div>
@@ -12,7 +13,14 @@
 </template>
 
 <script setup>
+defineProps({
+  title: {
+    type: String,
+    default: 'No title specified'
+  }
+})
 
+const emit = defineEmits(['hideModal']);
 </script>
 
 <style scoped>
